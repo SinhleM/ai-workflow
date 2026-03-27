@@ -1,0 +1,15 @@
+# requirements.txt
+# Install all dependencies with: pip install -r requirements.txt
+
+# FastAPI — the web framework for building your API
+fastapi==0.115.0
+
+# Uvicorn — the ASGI server that runs FastAPI
+# uvicorn[standard] includes WebSocket support and faster performance extras
+uvicorn[standard]==0.30.6
+
+# Anthropic Python SDK — for calling Claude AI
+anthropic==0.40.0
+
+# python-dotenv — for loading your API key from a .env file
+python-dotenv==1.0.1

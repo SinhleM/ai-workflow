@@ -1,0 +1,32 @@
+[
+    {
+        "id": "email_001",
+        "subject": "Request for Quote - Office Furniture",
+        "body": "Hello,\n\nMy name is Sarah Mitchell and I'm the office manager at TechVentures Ltd. We are currently expanding our Cape Town office and are looking to furnish two new floors.\n\nWe need a quote for the following:\n- 50 ergonomic office chairs\n- 25 standing desks\n- 10 conference room chairs\n\nWe'd need delivery by 15 April 2025. Please include bulk pricing and any available discounts.\n\nKind regards,\nSarah Mitchell\nTechVentures Ltd"
+    },
+    {
+        "id": "email_002",
+        "subject": "Need to reschedule our meeting",
+        "body": "Hi,\n\nThis is James Okonkwo. I had a consultation booked for Wednesday the 9th at 2pm but unfortunately I have a conflict — our board meeting got moved to that exact slot.\n\nCould we please reschedule to either Thursday the 10th at 10am or Friday the 11th at 3pm?\n\nAppreciate your flexibility.\n\nBest,\nJames Okonkwo"
+    },
+    {
+        "id": "email_003",
+        "subject": "Invoice #INV-2024-0892 attached",
+        "body": "Dear Accounts Team,\n\nPlease find attached Invoice #INV-2024-0892 from Bright Consulting Services for the web development project completed in March 2024.\n\nInvoice details:\n- Amount: R48,500 (excl. VAT)\n- VAT (15%): R7,275\n- Total: R55,775\n- Payment due: 30 days from invoice date\n\nPlease process at your earliest convenience. Bank details are included on the invoice.\n\nThank you,\nPriya Naidoo\nBright Consulting Services"
+    },
+    {
+        "id": "email_004",
+        "subject": "Pricing enquiry for bulk printing",
+        "body": "Good morning,\n\nI'm writing on behalf of Mzansi Events Co. My name is Thabo Dlamini, and we're organising a corporate conference for 300 delegates next month.\n\nWe'd like to get pricing for:\n- 300 branded folders\n- 300 name badges\n- 10 pull-up banners\n- 50 table cards\n\nWould appreciate a quote as soon as possible as we are comparing suppliers. Delivery to Johannesburg CBD.\n\nRegards,\nThabo Dlamini\nMzansi Events Co"
+    },
+    {
+        "id": "email_005",
+        "subject": "Appointment cancellation and rebooking",
+        "body": "Hello,\n\nI'm Amara Diallo and I need to cancel my appointment scheduled for Monday 7 April at 9:30am. A family emergency has come up and I won't be able to make it.\n\nI would like to rebook for the following week if possible — any slot on Tuesday or Wednesday afternoon would work for me.\n\nSorry for the short notice and thank you for understanding.\n\nWarm regards,\nAmara Diallo"
+    },
+    {
+        "id": "email_006",
+        "subject": "Supplier invoice for April services",
+        "body": "Hi Finance Team,\n\nAttached please find our monthly service invoice for April 2024.\n\nCompany: CleanEdge Facilities Management\nInvoice #: CE-APR-2024\nServices: Office cleaning, waste management, and hygiene supplies\nAmount due: R12,800\nDue date: 15 April 2024\n\nPayment via EFT to the bank details listed on the invoice. Please send remittance advice to accounts@cleanedge.co.za\n\nThank you for your continued business.\n\nLinda Ferreira\nCleanEdge Facilities Management"
+    }
+]

@@ -1,41 +1,32 @@
-"""
-ai/extract.py — Step 2 of the AI Pipeline: Structured Data Extraction
-
-This is where the "magic" happens visually — unstructured text becomes
-clean, machine-readable JSON.
-
-Why does this matter?
-An email like: "Hi, I'm John and I need a quote for 10 desks by Friday"
-becomes: { "customer_name": "John", "details": "10 desks", "date": "Friday" }
-
-That structured data is what allows automation. You can't build workflows
-on raw text — you CAN build them on structured fields.
-"""
-
 import json
-import anthropic
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
 
-client = anthropic.Anthropic()
+# Load environment variables (OPENAI_API_KEY)
+load_dotenv()
 
+# Create the OpenAI client
+# It will now find the key because load_dotenv() ran first
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def extract_data(email_text: str) -> dict:
     """
-    Extracts key structured fields from a raw email using Claude.
-    
-    Why ask for JSON specifically?
-    Because we need to parse the response programmatically.
-    We also add "Return ONLY valid JSON" to prevent markdown code fences
-    (Claude sometimes wraps JSON in ```json ... ``` blocks).
-    
-    Args:
-        email_text: The raw email content
-        
-    Returns:
-        Dict with keys: customer_name, intent, details, date
+    Extracts key structured fields from a raw email using GPT-4o-mini.
     """
+    # Safety check for the API key
+    if not os.getenv("OPENAI_API_KEY"):
+        print("[Error] No OpenAI API Key found for extraction!")
+        return {
+            "customer_name": None,
+            "intent": "unknown",
+            "details": email_text[:50],
+            "date": None
+        }
+
     prompt = f"""Extract structured data from this email.
 
-Return ONLY valid JSON (no markdown, no explanation) in exactly this format:
+Return ONLY valid JSON in exactly this format:
 {{
   "customer_name": "extracted name or null",
   "intent": "what they want",
@@ -46,35 +37,26 @@ Return ONLY valid JSON (no markdown, no explanation) in exactly this format:
 Email:
 {email_text}"""
 
-    message = client.messages.create(
-        model="claude-opus-4-5",
-        max_tokens=300,
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
-    )
-
-    raw = message.content[0].text.strip()
-
-    # ---------------------------------------------------------------
-    # Robust JSON Parsing
-    # ---------------------------------------------------------------
-    # LLMs sometimes return: ```json { ... } ```
-    # We strip the markdown fences before parsing.
-    # This is a common real-world defensive pattern.
-    # ---------------------------------------------------------------
-    if raw.startswith("```"):
-        lines = raw.split("\n")
-        # Remove first line (```json) and last line (```)
-        raw = "\n".join(lines[1:-1])
-
     try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            max_tokens=300,
+            # response_format forces OpenAI to return valid JSON
+            response_format={"type": "json_object"},
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        raw = response.choices[0].message.content.strip()
         return json.loads(raw)
-    except json.JSONDecodeError:
-        # If parsing fails, return a safe default
+
+    except (json.JSONDecodeError, Exception) as e:
+        print(f"[AI Error] Extraction failed: {e}")
+        # Fallback in case something unexpected happens
         return {
             "customer_name": None,
-            "intent": "unknown",
-            "details": email_text[:100],  # First 100 chars as fallback
+            "intent": "error",
+            "details": email_text[:100],
             "date": None
         }

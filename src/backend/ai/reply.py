@@ -1,39 +1,25 @@
-"""
-ai/reply.py — Step 3 of the AI Pipeline: Automated Response Generation
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
 
-This module generates a short, professional reply to each incoming email.
-This simulates what a real business automation tool would do:
-acknowledge receipt automatically, without a human needing to type it.
+# Load environment variables (OPENAI_API_KEY)
+load_dotenv()
 
-Why is this valuable for a CV?
-It demonstrates you understand LLMs as generative tools,
-not just classifiers. You're using them to produce output
-that enters the real world (a reply email).
-"""
-
-import anthropic
-
-client = anthropic.Anthropic()
-
+# Create the OpenAI client
+# It will now find the key because load_dotenv() ran first
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def generate_reply(email_text: str, intent: str, extracted_data: dict) -> str:
     """
-    Generates a short professional acknowledgment reply.
-    
-    We pass in both the raw email AND the extracted data.
-    This gives Claude richer context so it can personalize the reply
-    (e.g., address the customer by name if we extracted it).
-    
-    Args:
-        email_text:     The original email content
-        intent:         The classified intent (e.g., "quote_request")
-        extracted_data: The structured data we already extracted
-        
-    Returns:
-        A 1-2 sentence professional reply string
+    Generates a short professional acknowledgment reply using GPT-4o-mini.
     """
+    # Safety check for the API key
+    if not os.getenv("OPENAI_API_KEY"):
+        print("[Error] No OpenAI API Key found for reply generation!")
+        return "Thank you for your email. Our team has received your request and will get back to you shortly."
+
     customer_name = extracted_data.get("customer_name") or "there"
-    
+
     # Map intents to human-readable descriptions for the prompt
     intent_descriptions = {
         "quote_request": "quote request",
@@ -52,12 +38,16 @@ Do NOT say "I" — write from the company's perspective (use "We" or "Our team")
 Original email:
 {email_text}"""
 
-    message = client.messages.create(
-        model="claude-opus-4-5",
-        max_tokens=150,
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
-    )
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            max_tokens=150,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return response.choices[0].message.content.strip()
 
-    return message.content[0].text.strip()
+    except Exception as e:
+        print(f"[AI Error] Reply generation failed: {e}")
+        return f"Hello {customer_name}, thank you for reaching out. We have received your {intent_label} and will process it shortly."

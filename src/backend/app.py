@@ -1,84 +1,73 @@
 """
 app.py — The Entry Point of Your Backend
-
-This is the "front door" of your entire backend server.
-FastAPI listens for HTTP requests and routes them to the right functions.
-Think of it as the traffic controller: requests come in, it decides who handles them.
-
-Why FastAPI?
-- Auto-generates interactive API docs at /docs (great for demos)
-- Very fast, async-friendly
-- Clean decorator-based routing (@app.get, @app.post)
 """
+
+import os
+from dotenv import load_dotenv
+
+# 1. Load environment variables FIRST
+load_dotenv()
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from services.processor import process_email
-from services.storage import get_all_emails
-from emails.loader import get_random_email
+from fastapi.responses import JSONResponse
 
-# Create the FastAPI app instance
+# 2. Import the "Brain" and "Storage"
+# Note: We use simulate_new_email because it handles the random logic + processing
+from services.processor import simulate_new_email
+from services.storage import get_all_emails
+
 app = FastAPI(
-    title="AI Operations Assistant",
-    description="Processes emails using AI and routes them to business workflows",
+    title="Sinneo AI Operations Assistant",
+    description="Processes South African business emails using GPT-4o-mini",
     version="1.0.0"
 )
 
 # ---------------------------------------------------------------
 # CORS Middleware
 # ---------------------------------------------------------------
-# CORS = Cross-Origin Resource Sharing
-# Without this, your Next.js frontend (running on port 3000)
-# would be BLOCKED from calling your backend (running on port 8000).
-# Browsers enforce this security rule by default.
-# This middleware tells the browser: "It's okay, I allow it."
-# ---------------------------------------------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Your Next.js dev server
+    allow_origins=["http://localhost:3000"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
 @app.get("/")
 def root():
-    """Health check endpoint — confirms the server is running."""
     return {"status": "AI Operations Assistant is running 🚀"}
 
-
 @app.post("/simulate-email")
-def simulate_email():
+def simulate_email_endpoint():
     """
     POST /simulate-email
-    
-    Picks a random email from sample_emails.json,
-    runs it through the full AI pipeline, saves it,
-    and returns the processed record.
-    
-    Why POST and not GET?
-    Because this endpoint CHANGES state (it writes a new record to the DB).
-    GET requests should only READ data — that's REST convention.
+    Triggers the full South African email simulation pipeline.
     """
     try:
-        email_text = get_random_email()
-        record = process_email(email_text)
+        # This function (in processor.py) picks the random email AND processes it
+        record = simulate_new_email()
         return {"success": True, "record": record}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
+        print(f"[Backend Error] Simulation failed: {e}")
+        return JSONResponse(
+            status_code=500, 
+            content={"success": False, "detail": str(e)}
+        )
 
 @app.get("/emails")
 def list_emails():
     """
     GET /emails
-    
-    Returns all processed email records from db.json.
-    The frontend polls this to display the dashboard.
+    Returns all processed email records for the Gmail-style dashboard.
     """
     try:
         emails = get_all_emails()
+        # Ensure this matches the 'data.emails' expected by your frontend api.ts
         return {"success": True, "emails": emails, "count": len(emails)}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        print(f"[Backend Error] Fetching emails failed: {e}")
+        return JSONResponse(
+            status_code=500, 
+            content={"success": False, "detail": str(e)}
+        )

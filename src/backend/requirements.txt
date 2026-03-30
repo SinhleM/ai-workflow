@@ -8,8 +8,8 @@ fastapi==0.115.0
 # uvicorn[standard] includes WebSocket support and faster performance extras
 uvicorn[standard]==0.30.6
 
-# Anthropic Python SDK — for calling Claude AI
-anthropic==0.40.0
+# OpenAI Python SDK — for calling GPT-4o-mini
+openai==1.54.0
 
 # python-dotenv — for loading your API key from a .env file
 python-dotenv==1.0.1

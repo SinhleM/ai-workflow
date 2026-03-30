@@ -1,0 +1,77 @@
+[
+  {
+    "id": "04982eef-035b-4f7f-a3ed-0b432f763449",
+    "timestamp": "2026-03-30T07:55:56.056813Z",
+    "email": "Hello,\n\nI'm Amara Diallo and I need to cancel my appointment scheduled for Monday 7 April at 9:30am. A family emergency has come up and I won't be able to make it.\n\nI would like to rebook for the following week if possible — any slot on Tuesday or Wednesday afternoon would work for me.\n\nSorry for the short notice and thank you for understanding.\n\nWarm regards,\nAmara Diallo",
+    "intent": "quote_request",
+    "department": "sales",
+    "extracted_data": {
+      "customer_name": null,
+      "intent": "error",
+      "details": "Hello,\n\nI'm Amara Diallo and I need to cancel my appointment scheduled for Monday 7 April at 9:30am.",
+      "date": null
+    },
+    "response": "Hello there, thank you for reaching out. We have received your quote request and will process it shortly.",
+    "status": "processed"
+  },
+  {
+    "id": "a31d814c-ebde-4e08-b1af-9ee1254fb1c6",
+    "timestamp": "2026-03-30T07:56:47.261282Z",
+    "email": "Hello,\n\nI'm Amara Diallo and I need to cancel my appointment scheduled for Monday 7 April at 9:30am. A family emergency has come up and I won't be able to make it.\n\nI would like to rebook for the following week if possible — any slot on Tuesday or Wednesday afternoon would work for me.\n\nSorry for the short notice and thank you for understanding.\n\nWarm regards,\nAmara Diallo",
+    "intent": "quote_request",
+    "department": "sales",
+    "extracted_data": {
+      "customer_name": null,
+      "intent": "error",
+      "details": "Hello,\n\nI'm Amara Diallo and I need to cancel my appointment scheduled for Monday 7 April at 9:30am.",
+      "date": null
+    },
+    "response": "Hello there, thank you for reaching out. We have received your quote request and will process it shortly.",
+    "status": "processed"
+  },
+  {
+    "id": "36d284ed-6874-42be-ac98-dd98c37de256",
+    "timestamp": "2026-03-30T07:57:41.328649Z",
+    "email": "Hi Finance Team,\n\nAttached please find our monthly service invoice for April 2024.\n\nCompany: CleanEdge Facilities Management\nInvoice #: CE-APR-2024\nServices: Office cleaning, waste management, and hygiene supplies\nAmount due: R12,800\nDue date: 15 April 2024\n\nPayment via EFT to the bank details listed on the invoice. Please send remittance advice to accounts@cleanedge.co.za\n\nThank you for your continued business.\n\nLinda Ferreira\nCleanEdge Facilities Management",
+    "intent": "quote_request",
+    "department": "sales",
+    "extracted_data": {
+      "customer_name": null,
+      "intent": "error",
+      "details": "Hi Finance Team,\n\nAttached please find our monthly service invoice for April 2024.\n\nCompany: CleanEd",
+      "date": null
+    },
+    "response": "Hello there, thank you for reaching out. We have received your quote request and will process it shortly.",
+    "status": "processed"
+  },
+  {
+    "id": "89ea0ecf-e6e1-4a0e-b1e9-fe3493d4816f",
+    "timestamp": "2026-03-30T08:07:00.032610+00:00Z",
+    "email": "Hi Finance Team, Attached please find our monthly service invoice for March 2026. Company: CleanEdge Facilities Management. Services: Office cleaning and hygiene supplies. Amount due: R12,800. Payment via EFT to the bank details listed on the invoice. Please send remittance advice to accounts@cleanedge.co.za. Thank you, Linda Ferreira.",
+    "intent": "quote_request",
+    "department": "sales",
+    "extracted_data": {
+      "customer_name": null,
+      "intent": "error",
+      "details": "Hi Finance Team, Attached please find our monthly service invoice for March 2026. Company: CleanEdge",
+      "date": null
+    },
+    "response": "Hello there, thank you for reaching out. We have received your quote request and will process it shortly.",
+    "status": "processed"
+  },
+  {
+    "id": "e3794cee-cc11-4457-87bc-787dbf253149",
+    "timestamp": "2026-03-30T08:07:12.012956+00:00Z",
+    "email": "Good day, Please find attached the signed contract and proof of payment (EFT) for the website development deposit. The reference used was INV-2026-0034. Please confirm receipt and let me know when we begin. Best, Sipho Gumede.",
+    "intent": "quote_request",
+    "department": "sales",
+    "extracted_data": {
+      "customer_name": null,
+      "intent": "error",
+      "details": "Good day, Please find attached the signed contract and proof of payment (EFT) for the website develo",
+      "date": null
+    },
+    "response": "Hello there, thank you for reaching out. We have received your quote request and will process it shortly.",
+    "status": "processed"
+  }
+]
